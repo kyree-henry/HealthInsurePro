@@ -1,0 +1,28 @@
+@startuml HealthInsuranceERP - Container Diagram - Policy Management
+
+scale 2/3
+
+center header
+    C4 Architecture: Health Insurance ERP System - Container Diagram (Policy Management)
+endheader
+
+title Health Insurance ERP System - Container Diagram (Policy Management) <&circle-check>
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Container.puml
+
+' Boundary for Health Insurance ERP System
+Boundary(healthinsuranceerp, "Health Insurance ERP") {
+    Container(policymanagementui, "Policy Management UI", "Web UI")
+    Container(policymanagementservice, "Policy Management Service", ".Net Micro Microservices")
+    Container(database, "Database", "Relational Database")
+}
+
+Rel_D(policymanagementui, policymanagementservice, "HTTP")
+Rel_D(policymanagementservice, database, "JDBC")
+
+center footer
+    
+    Diagram Footer v1.0
+    Designed by @ KyreeHenry
+endfooter
+@enduml

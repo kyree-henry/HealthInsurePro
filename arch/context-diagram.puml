@@ -27,6 +27,8 @@ Rel(healthinsuranceerp, ehrsystem, "Fetch patient data", "Integration API")
 Rel(healthinsuranceerp, paymentgateway, "Process payments", "Secure connection")
 
 center footer
+
     Diagram Footer v1.0
+    Designed by @ KyreeHenry
 endfooter
 @enduml
