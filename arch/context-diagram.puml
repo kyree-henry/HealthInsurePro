@@ -1,0 +1,32 @@
+@startuml
+
+scale 2/3
+'left to right direction
+center header
+    C4 Architecture: Health Insurance ERP System - Context Diagram
+endheader
+
+title Health Insurance ERP System - Context Diagram <&circle-check>
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Context.puml
+
+Person(insurancestaff, "Insurance Company Staff", "Staff managing insurance policies")
+Person(policyholder, "Policyholder", "Individuals holding insurance policies")
+Person(hospitaladmin, "Hospital Administrator", "Administrative staff at hospitals")
+
+System(healthinsuranceerp, "Health Insurance ERP", "Manages policies and claims")
+
+System_Ext(ehrsystem, "Hospital EHR", "Electronic Health Record System")
+System_Ext(paymentgateway, "Payment Gateway", "Secure payment processing")
+
+Rel(insurancestaff, healthinsuranceerp, "Manage policies")
+Rel(policyholder, healthinsuranceerp, "Access policy information")
+Rel(hospitaladmin, healthinsuranceerp, "Interact with claims")
+
+Rel(healthinsuranceerp, ehrsystem, "Fetch patient data", "Integration API")
+Rel(healthinsuranceerp, paymentgateway, "Process payments", "Secure connection")
+
+center footer
+    Diagram Footer v1.0
+endfooter
+@enduml
