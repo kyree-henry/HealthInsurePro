@@ -13,12 +13,12 @@ title Health Insurance ERP System - Container Diagram (Policy Management) <&circ
 ' Boundary for Health Insurance ERP System
 Boundary(healthinsuranceerp, "Health Insurance ERP") {
     Container(policymanagementui, "Policy Management UI", "Web UI")
-    Container(policymanagementservice, "Policy Management Service", ".Net Micro Microservices")
+    Container(policymanagementservice, "Policy Management Service", "ASP.NET Core API / Microservices")
     Container(database, "Database", "Relational Database")
 }
 
 Rel_D(policymanagementui, policymanagementservice, "HTTP")
-Rel_D(policymanagementservice, database, "JDBC")
+Rel_D(policymanagementservice, database, "SQL Server")
 
 center footer
     
