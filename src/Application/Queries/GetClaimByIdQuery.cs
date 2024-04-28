@@ -1,6 +1,6 @@
-﻿namespace HealthInsurePro.Application.Queries
+﻿using HealthInsurePro.Contract.ClaimContracts;
+
+namespace HealthInsurePro.Application.Queries
 {
-    internal class GetClaimByIdQuery
-    {
-    }
+    public record GetClaimByIdQuery(Guid claimId) : IRequest<ClaimModel>;
 }

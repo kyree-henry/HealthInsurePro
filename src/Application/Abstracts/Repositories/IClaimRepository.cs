@@ -8,6 +8,6 @@ namespace HealthInsurePro.Application.Abstracts.Repositories
 
 
         Task<ClaimModel> GetByIdAsync(Guid id);
-        Task<ClaimModel> SubmitAsync(CreateClaimModel data);
+        Task<ClaimModel> CreateAsync(CreateClaimModel data);
     }
 }

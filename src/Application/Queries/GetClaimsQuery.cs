@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HealthInsurePro.Contract.ClaimContracts;
 
 namespace HealthInsurePro.Application.Queries
 {
-    internal class GetClaimsQuery
-    {
-    }
+    public record GetClaimsQuery(string policyHolderNationalId) : IRequest<IEnumerable<ClaimModel>>;
 }
