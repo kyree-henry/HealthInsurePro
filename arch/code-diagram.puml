@@ -1,0 +1,36 @@
+@startuml HealthInsuranceERP - Code Level Diagram
+
+scale 2/3
+
+center header
+    C4 Architecture: Health Insurance ERP System - Code Level Diagram
+endheader
+
+title Health Insurance ERP System - Code Level Diagram
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(code, "Code Level") {
+    [Claim] <<Entity>> 
+    [PolicyHolder] <<Entity>> 
+    [AspNetUsers] <<Entity>>
+    [AspNetRoles] <<Entity>>
+    [IAccountRepository] <<Interface>>
+    [IDatabaseConfiguration] <<Interface>>
+    [IClaimRepository] <<Interface>>
+    [IPolicyHolderRepository] <<Interface>>
+}
+
+Rel_D([Claim], [IClaimRepository], "Uses")
+Rel_D([PolicyHolder], [IPolicyHolderRepository], "Uses")
+Rel_D([AspNetUsers], [IAccountRepository], "Uses")
+Rel_D([AspNetRoles], [IAccountRepository], "Uses")
+Rel_D([AspNetRoles], [IAccountRepository], "Uses")
+Rel_D([IDatabaseConfiguration], [IClaimRepository], "Connection String")
+
+center footer
+    
+    Diagram Footer v1.0
+    Designed by @ KyreeHenry
+endfooter
+@enduml

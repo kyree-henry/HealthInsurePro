@@ -13,24 +13,22 @@ title Health Insurance ERP System - Component Diagram (Policy Management)
 ContainerDb(database, "Database", "SQL Database", "Transactional data store")
 
 Container_Boundary(policymanagement, "Policy Management") {
-    Component(domain, "Domain", "Entities, Business Logic, and Domain Services", "netstandard2.1/net80")
-    Component(infrastructure, "Infrastructure", "Repository, Data Access, Caching Logic", "Entity Framework Core")
-    Component(application, "Application", "Application Logic and Use Cases", "ASP.NET Core")
-    Component(presentation, "Presentation", "UI and External Interfaces", "ASP.NET Core Blazor")
+    Component(domain, "Domain", "Entities and Domain Services", "netstandard2.1/net80")
+    Component(contract, "Contract", "Application DTOs", "Class Library")
+    Component(infrastructure, "Infrastructure", "Repository (Use Cases & Business Logic), Data Access, Caching Logic and Infrastructure Services", "Class Library")
+    Component(application, "Application", "Application Logic", "Class Library")
+    Component(presentation, "Presentation", "UI and External Interfaces", "ASP.NET Core API")
 
     Component(unitTests, "Unit Tests", "Tests all in-memory logic", "xUnit/NUnit")
     Component(integrationTests, "Integration Tests", "Tests all logic that flows between different memory spaces", "xUnit/NUnit")
 }
 
-Rel(infrastructure, domain, "Project Reference")
-Rel(application, domain, "Project Reference")
-Rel(presentation, application, "Project Reference")
-Rel(unitTests, domain, "Project Reference")
+Rel(infrastructure, application, "Project Reference")
+Rel(application, contract, "Project Reference")
+Rel(contract, domain, "Project Reference")
+Rel(presentation, infrastructure, "Project Reference")
 Rel(unitTests, infrastructure, "Project Reference")
-Rel(unitTests, application, "Project Reference")
-Rel(integrationTests, domain, "Project Reference")
 Rel(integrationTests, infrastructure, "Project Reference")
-Rel(integrationTests, application, "Project Reference")
 
 Rel(infrastructure, database, "ConnectionString")
 
