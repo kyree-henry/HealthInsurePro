@@ -1,10 +1,13 @@
+using HealthInsurePro.Infrastructure.Extensions;
+
 namespace HealthInsurePro.Presentation
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            IHost host = CreateHostBuilder(args).Build();
+            await host.ConfigureHost().RunAsync();
         }
 
         private static IHostBuilder CreateHostBuilder(string[] args) =>
