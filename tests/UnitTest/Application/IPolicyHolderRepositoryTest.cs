@@ -3,7 +3,7 @@ using HealthInsurePro.Application.Abstracts.Repositories;
 using HealthInsurePro.Contract.PolicyHolderContracts;
 using Shouldly;
 
-namespace HealthInsurePro.UnitTest.Infrastructure
+namespace HealthInsurePro.UnitTest.Application
 {
     internal class IPolicyHolderRepositoryTest
     {
@@ -54,13 +54,13 @@ namespace HealthInsurePro.UnitTest.Infrastructure
         public async Task CreateAsync_Should_Return_Created_PolicyHolder()
         {
             // Arrange
-            CreatePolicyHolderModel createModel = GetRandomCreatePolicyHolderModel();
-            PolicyHolderModel expectedPolicyHolder = GetRandomPolicyHolder(createModel.PolicyHolderId);
+            CreatePolicyHolderModel newPolicyHolder = GetRandomCreatePolicyHolder();
+            PolicyHolderModel expectedPolicyHolder = GetRandomPolicyHolder(newPolicyHolder.PolicyHolderId);
 
-            A.CallTo(() => _policyHolderRepository.CreateAsync(createModel)).Returns(expectedPolicyHolder);
+            A.CallTo(() => _policyHolderRepository.CreateAsync(newPolicyHolder)).Returns(expectedPolicyHolder);
 
             // Act
-            PolicyHolderModel result = await _policyHolderRepository.CreateAsync(createModel);
+            PolicyHolderModel result = await _policyHolderRepository.CreateAsync(newPolicyHolder);
 
             // Assert
             result.ShouldNotBeNull();
@@ -78,7 +78,7 @@ namespace HealthInsurePro.UnitTest.Infrastructure
             return policyHolders;
         }
 
-        private PolicyHolderModel GetRandomPolicyHolder(Guid policyHolderId)
+        private static PolicyHolderModel GetRandomPolicyHolder(Guid policyHolderId)
         {
             Random random = new ();
             return new PolicyHolderModel
@@ -92,7 +92,7 @@ namespace HealthInsurePro.UnitTest.Infrastructure
             };
         }
 
-        private CreatePolicyHolderModel GetRandomCreatePolicyHolderModel()
+        private static CreatePolicyHolderModel GetRandomCreatePolicyHolder()
         {
             Random random = new ();
             return new CreatePolicyHolderModel

@@ -1,11 +1,10 @@
 ﻿using FakeItEasy;
 using HealthInsurePro.Application.Abstracts.Repositories;
 using HealthInsurePro.Contract.ClaimContracts;
-using HealthInsurePro.Contract.PolicyHolderContracts;
 using HealthInsurePro.Domain;
 using Shouldly;
 
-namespace HealthInsurePro.UnitTest.Infrastructure
+namespace HealthInsurePro.UnitTest.Application
 {
     [TestFixture] //TODO: Complete Tests
     internal class IClaimRepositoryTest
@@ -24,7 +23,7 @@ namespace HealthInsurePro.UnitTest.Infrastructure
         {
             // Arrange
             string nationalId = "123456";
-            IEnumerable<ClaimModel> expectedResult = GetRandomClaimModels(4, nationalId);
+            IEnumerable<ClaimModel> expectedResult = GetRandomClaims(4, nationalId);
 
             A.CallTo(() => _claimRepository.GetAsync(nationalId)).Returns(expectedResult);
 
@@ -92,7 +91,7 @@ namespace HealthInsurePro.UnitTest.Infrastructure
             result.ShouldBe(expectedClaim);
         }
 
-        private static IEnumerable<ClaimModel> GetRandomClaimModels(int count, string? nationalId = null)
+        private static IEnumerable<ClaimModel> GetRandomClaims(int count, string? nationalId = null)
         {
             List<ClaimModel> claims = [];
             for (int i = 0; i < count; i++)

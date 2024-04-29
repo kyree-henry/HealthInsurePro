@@ -5,7 +5,7 @@ using HealthInsurePro.Contract.UserContracts;
 using HealthInsurePro.Domain;
 using Shouldly;
 
-namespace HealthInsurePro.UnitTest.Infrastructure
+namespace HealthInsurePro.UnitTest.Application
 {
     internal class IAccountRepositoryTest
     {
@@ -39,13 +39,13 @@ namespace HealthInsurePro.UnitTest.Infrastructure
         public async Task RegisterAsync_Should_Return_UserModel()
         {
             // Arrange
-            RegisterModel registerModel = GetRandomRegisterModel();
-            UserModel expectedUser = GetRandomUserModel();
+            RegisterModel newUser = GetRandomRegisterData();
+            UserModel expectedUser = GetRandomUserData();
 
-            A.CallTo(() => _accountRepository.RegisterAsync(registerModel)).Returns(expectedUser);
+            A.CallTo(() => _accountRepository.RegisterAsync(newUser)).Returns(expectedUser);
 
             // Act
-            UserModel result = await _accountRepository.RegisterAsync(registerModel);
+            UserModel result = await _accountRepository.RegisterAsync(newUser);
 
             // Assert
             result.ShouldNotBeNull();
@@ -82,7 +82,7 @@ namespace HealthInsurePro.UnitTest.Infrastructure
             result.ShouldBeFalse();
         }
 
-        private TokenRequestModel GetRandomTokenRequestModel()
+        private static TokenRequestModel GetRandomTokenRequestModel()
         {
             Random random = new ();
             return new TokenRequestModel
@@ -92,7 +92,7 @@ namespace HealthInsurePro.UnitTest.Infrastructure
             };
         }
 
-        private TokenResponseModel GetRandomTokenResponseModel()
+        private static TokenResponseModel GetRandomTokenResponseModel()
         {
             Random random = new ();
             return new TokenResponseModel
@@ -105,7 +105,7 @@ namespace HealthInsurePro.UnitTest.Infrastructure
             };
         }
 
-        private static RegisterModel GetRandomRegisterModel()
+        private static RegisterModel GetRandomRegisterData()
         {
             var random = new Random();
             string password = Guid.NewGuid().ToString();
@@ -120,7 +120,7 @@ namespace HealthInsurePro.UnitTest.Infrastructure
             };
         }
 
-        private static UserModel GetRandomUserModel()
+        private static UserModel GetRandomUserData()
         {
             var random = new Random();
             return new UserModel
