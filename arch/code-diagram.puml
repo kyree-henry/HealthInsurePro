@@ -26,7 +26,6 @@ Rel_D([PolicyHolder], [IPolicyHolderRepository], "Uses")
 Rel_D([AspNetUsers], [IAccountRepository], "Uses")
 Rel_D([AspNetRoles], [IAccountRepository], "Uses")
 Rel_D([AspNetRoles], [IAccountRepository], "Uses")
-Rel_D([IDatabaseConfiguration], [IClaimRepository], "Connection String")
 
 center footer
     
