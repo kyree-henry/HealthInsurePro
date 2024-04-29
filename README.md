@@ -10,15 +10,15 @@ The Health Insurance ERP System is built on the principles of Clean Architecture
 
 ### Level 1: System Context Diagram
 
-![System Context Diagram](arch/out/code-diagram/HealthInsuranceERP-CodeLevelDiagram.png)
+![System Context Diagram](arch/out/context-diagram/context-diagram.png)
 
 ### Level 2: Container Diagram
 
-![Container Diagram](images/container_diagram.png)
+![Container Diagram](arch/out/container-diagram/HealthInsuranceERP%20-%20Container%20Diagram%20-%20Policy%20Management.png)
 
 ### Level 3: Component Diagram
 
-![Component Diagram](images/component_diagram.png)
+![Component Diagram](arch/out/component-diagram/HealthInsuranceERP%20-%20Component%20Diagram%20-%20Policy%20Management.png)
 
 
 ### Level 3: Code Diagram
