@@ -1,12 +1,19 @@
 ﻿using HealthInsurePro.Application.Commands;
 using HealthInsurePro.Contract.AccountContracts;
 using HealthInsurePro.Contract.UserContracts;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 
 namespace HealthInsurePro.Presentation.Controllers.V1
 {
     public class AccountController : BaseController
     {
+        private readonly IMediator _mediator;
+        public AccountController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [Route(nameof(Register))]

@@ -3,12 +3,20 @@ using HealthInsurePro.Application.Queries;
 using HealthInsurePro.Contract.ClaimContracts;
 using HealthInsurePro.Domain;
 using HealthInsurePro.Domain.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 
 namespace HealthInsurePro.Presentation.Controllers.V1
 {
     public class ClaimsController : BaseController
     {
+        private readonly IMediator _mediator;
+
+        public ClaimsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [HttpGet]
         [Route("{id}")]
         [Authorize]

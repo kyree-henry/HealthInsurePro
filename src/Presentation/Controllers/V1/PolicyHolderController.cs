@@ -1,12 +1,19 @@
 ﻿using HealthInsurePro.Application.Commands;
 using HealthInsurePro.Application.Queries;
 using HealthInsurePro.Contract.PolicyHolderContracts;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 
 namespace HealthInsurePro.Presentation.Controllers.V1
 {
     public class PolicyHolderController : BaseController
     {
+        private readonly IMediator _mediator;
+        public PolicyHolderController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [HttpGet]
         [Route("{id}")]
         [Authorize]
