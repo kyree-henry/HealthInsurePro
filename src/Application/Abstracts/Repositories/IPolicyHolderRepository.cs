@@ -6,5 +6,6 @@ namespace HealthInsurePro.Application.Abstracts.Repositories
     {
         Task<IEnumerable<PolicyHolderModel>> GetAsync();
         Task<PolicyHolderModel> GetByIdAsync(Guid policyHolderId);
+        Task<PolicyHolderModel> CreateAsync(CreatePolicyHolderModel data);
     }
 }
