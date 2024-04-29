@@ -4,6 +4,6 @@ namespace HealthInsurePro.Application.Abstracts.Services
 {
     public interface ITokenService
     {
-        string CreateToken(ApplicationUser user);
+        Task<string> CreateToken(ApplicationUser user);
     }
 }

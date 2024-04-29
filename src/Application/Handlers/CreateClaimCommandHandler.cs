@@ -1,6 +1,4 @@
-﻿using HealthInsurePro.Application.Abstracts.Repositories;
-using HealthInsurePro.Application.Commands;
-using HealthInsurePro.Contract.ClaimContracts;
+﻿using HealthInsurePro.Contract.ClaimContracts;
 
 namespace HealthInsurePro.Application.Handlers
 {
