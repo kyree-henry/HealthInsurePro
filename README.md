@@ -20,6 +20,12 @@ The Health Insurance ERP System is built on the principles of Clean Architecture
 
 ![Component Diagram](images/component_diagram.png)
 
+
+### Level 3: Code Diagram
+
+![Component Diagram](arch/out/code-diagram/HealthInsuranceERP%20-%20Code%20Level%20Diagram.png)
+
+
 ## Running the .NET Project
 
 Follow the steps below to run the .NET project locally:
