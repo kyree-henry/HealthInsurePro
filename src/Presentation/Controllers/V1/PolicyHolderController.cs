@@ -9,7 +9,7 @@ namespace HealthInsurePro.Presentation.Controllers.V1
     {
         [HttpGet]
         [Route("{id}")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
         {
             return await HandleExceptionAsync(async () =>
@@ -29,7 +29,7 @@ namespace HealthInsurePro.Presentation.Controllers.V1
         }
         
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Get(CancellationToken cancellationToken)
         {
             return await HandleExceptionAsync(async () =>
@@ -43,7 +43,7 @@ namespace HealthInsurePro.Presentation.Controllers.V1
         }
         
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] CreatePolicyHolderModel data, CancellationToken cancellationToken)
         {
             return await HandleExceptionAsync(async () =>

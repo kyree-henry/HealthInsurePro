@@ -2,6 +2,8 @@
 using HealthInsurePro.Application.Queries;
 using HealthInsurePro.Contract.ClaimContracts;
 using HealthInsurePro.Domain;
+using HealthInsurePro.Domain.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HealthInsurePro.Presentation.Controllers.V1
 {
@@ -9,6 +11,7 @@ namespace HealthInsurePro.Presentation.Controllers.V1
     {
         [HttpGet]
         [Route("{id}")]
+        [Authorize]
         public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
         {
             return await HandleExceptionAsync(async () =>
@@ -28,6 +31,7 @@ namespace HealthInsurePro.Presentation.Controllers.V1
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get(string policyHolderNationalId, CancellationToken cancellationToken)
         {
             return await HandleExceptionAsync(async () =>
@@ -42,6 +46,7 @@ namespace HealthInsurePro.Presentation.Controllers.V1
 
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] CreateClaimModel data, CancellationToken cancellationToken)
         {
             return await HandleExceptionAsync(async () =>
@@ -57,6 +62,7 @@ namespace HealthInsurePro.Presentation.Controllers.V1
         }
 
         [HttpPut]
+        [Authorize(Roles = RoleConstants.AdminRole)]
         [Route(nameof(ProcessClaim))]
         public async Task<IActionResult> ProcessClaim(Guid claimId, ClaimStatus action, CancellationToken cancellationToken)
         {

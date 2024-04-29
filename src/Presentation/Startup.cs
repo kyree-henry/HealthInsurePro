@@ -20,6 +20,7 @@ namespace HealthInsurePro.Presentation
             services.AddMvcServices();
             services.AddSwaggerServices();
             services.AddDatabaseServices();
+            services.AddAuthenticationAndAuthorizationServices(_config);
         }
 
         public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider)

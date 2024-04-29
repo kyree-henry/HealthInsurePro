@@ -5,6 +5,13 @@ using HealthInsurePro.Application;
 using HealthInsurePro.Presentation.Data.Swagger;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
+using Microsoft.Extensions.Configuration;
+using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HealthInsurePro.Presentation.Data
 {
@@ -56,6 +63,40 @@ namespace HealthInsurePro.Presentation.Data
 
             return services;
         }
+
+        public static IServiceCollection AddAuthenticationAndAuthorizationServices(this IServiceCollection services, IConfiguration config)
+        {
+            JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
+            services.AddAuthentication(authentication =>
+            {
+                authentication.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                authentication.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(option =>
+            {
+                option.SaveToken = true;
+                option.TokenValidationParameters = new()
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]!)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+                option.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
+                    {
+                        if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                            context.Response.Headers.Append("Token-Expired", "true");
+
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+
+            services.AddAuthorization();
+            return services;
+        }
+
 
         public static IServiceCollection AddMvcServices(this IServiceCollection services)
         {

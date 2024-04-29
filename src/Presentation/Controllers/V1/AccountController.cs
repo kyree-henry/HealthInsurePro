@@ -27,7 +27,7 @@ namespace HealthInsurePro.Presentation.Controllers.V1
         [HttpPost]
         [AllowAnonymous]
         [Route(nameof(Login))]
-        public async Task<IActionResult> Login(TokenRequestModel data, CancellationToken cancellationToken)
+        public async Task<IActionResult> Login([FromBody] TokenRequestModel data, CancellationToken cancellationToken)
         {
             return await HandleExceptionAsync(async () =>
             {
