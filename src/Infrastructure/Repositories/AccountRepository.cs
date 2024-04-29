@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HealthInsurePro.Infrastructure.Repositories
 {
-    internal class AccountRepository : IAccountRepository
+    public class AccountRepository : IAccountRepository
     {
         private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
@@ -45,7 +45,8 @@ namespace HealthInsurePro.Infrastructure.Repositories
                 return response;
             }
 
-            string token = await _tokenService.CreateToken(user);
+            IList<string>? roles = await _userManager.GetRolesAsync(user);
+            string token = await _tokenService.CreateToken(user, roles);
             response.Token = token;
             response.Succeeded = true;
             response.Message = "Login successful.";

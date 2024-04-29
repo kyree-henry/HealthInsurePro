@@ -5,7 +5,7 @@ using System;
 
 namespace HealthInsurePro.Infrastructure.Repositories
 {
-    internal class ClaimRepository : IClaimRepository
+    public class ClaimRepository : IClaimRepository
     {
         private readonly IMapper _mapper;
         private readonly DataContext _context;

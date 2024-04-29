@@ -1,5 +1,6 @@
 ﻿using HealthInsurePro.Application.Abstracts.Services;
 using HealthInsurePro.Domain.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,14 +20,20 @@ namespace HealthInsurePro.Infrastructure.Services
             _context = context;
         }
 
-        public async Task<string> CreateToken(ApplicationUser user)
+        public async Task<string> CreateToken(ApplicationUser user, IList<string> roles)
         {
             try
             {
-                List<System.Security.Claims.Claim> claims = new()
+                List<System.Security.Claims.Claim> roleClaims = [];
+                foreach (string? role in roles)
+                {
+                    roleClaims.Add(new System.Security.Claims.Claim(ClaimTypes.Role, role));
+                }
+
+                IEnumerable<System.Security.Claims.Claim> claims = new List<System.Security.Claims.Claim>()
                 {
                     new System.Security.Claims.Claim(JwtRegisteredClaimNames.Name, user.UserName!)
-                };
+                }.Union(roleClaims);
 
                 SigningCredentials credentials = new(_key, SecurityAlgorithms.HmacSha512Signature);
                 SecurityTokenDescriptor tokenDescriptor = new()

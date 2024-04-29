@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HealthInsurePro.Infrastructure.Repositories
 {
-    internal class PolicyHolderRepository : IPolicyHolderRepository
+    public class PolicyHolderRepository : IPolicyHolderRepository
     {
         private readonly IMapper _mapper;
         private readonly DataContext _context;
