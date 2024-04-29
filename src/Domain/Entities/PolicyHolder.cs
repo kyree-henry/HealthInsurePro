@@ -4,7 +4,8 @@
     {
         public Guid PolicyHolderId { get; set; }
 
-        public string FullName { get; set; } = default!;
+        public string FirstName { get; set; } = default!;
+        public string SurName { get; set; } = default!;
 
         public string NationalId { get; set; } = default!;
         public DateTime DateOfBirth { get; set; }
