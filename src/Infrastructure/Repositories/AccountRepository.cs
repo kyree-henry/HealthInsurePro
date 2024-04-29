@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using HealthInsurePro.Application.Abstracts.Repositories;
+﻿using HealthInsurePro.Application.Abstracts.Services;
 using HealthInsurePro.Contract.AccountContracts;
 using HealthInsurePro.Contract.UserContracts;
 using HealthInsurePro.Domain.Identity;
@@ -10,17 +9,20 @@ namespace HealthInsurePro.Infrastructure.Repositories
     internal class AccountRepository : IAccountRepository
     {
         private readonly IMapper _mapper;
+        private readonly ITokenService _tokenService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private const string InvalidLoginMessage = "Invalid login attempt.";
 
         public AccountRepository(SignInManager<ApplicationUser> signInManager,
                                  UserManager<ApplicationUser> userManager,
-                                 IMapper mapper)
+                                 IMapper mapper,
+                                 ITokenService tokenService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _mapper = mapper;
+            _tokenService = tokenService;
         }
 
         public async Task<TokenResponseModel> LoginAsync(TokenRequestModel model)
@@ -43,7 +45,7 @@ namespace HealthInsurePro.Infrastructure.Repositories
                 return response;
             }
 
-            string token = ""; //await GenerateJwtAsync(user);
+            string token = await _tokenService.CreateToken(user);
             response.Token = token;
             response.Succeeded = true;
             response.Message = "Login successful.";

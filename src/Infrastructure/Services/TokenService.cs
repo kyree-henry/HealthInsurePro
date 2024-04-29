@@ -19,7 +19,7 @@ namespace HealthInsurePro.Infrastructure.Services
             _context = context;
         }
 
-        public string CreateToken(ApplicationUser user)
+        public async Task<string> CreateToken(ApplicationUser user)
         {
             try
             {

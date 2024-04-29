@@ -1,4 +1,7 @@
 ﻿using HealthInsurePro.Contract.ClaimContracts;
+using HealthInsurePro.Domain;
+using Microsoft.AspNetCore.Authentication.OAuth.Claims;
+using System;
 
 namespace HealthInsurePro.Infrastructure.Repositories
 {
@@ -37,7 +40,30 @@ namespace HealthInsurePro.Infrastructure.Repositories
                               : throw new Exception("Error occured while processing submitted claim.");
         }
 
+        public async Task<ClaimModel> ProcessClaimAsync(Guid claimId, ClaimStatus action)
+        {
+            Claim? claim = await _context.Claims.FindAsync(claimId) ?? throw new ArgumentException("Claim not found.");
 
+            switch (action)
+            {
+                case ClaimStatus.InReview:
+                    claim.ClaimStatus = ClaimStatus.InReview;
+                    break;
+                case ClaimStatus.Approved:
+                    claim.ClaimStatus = ClaimStatus.Approved;
+                    break;
+                case ClaimStatus.Declined:
+                    claim.ClaimStatus = ClaimStatus.Declined;
+                    break;
+                default:
+                    throw new ArgumentException("Invalid claim action.");
+            }
+
+            int result = await _context.SaveChangesAsync();
+
+            return result > 0 ? _mapper.Map<ClaimModel>(claim)
+                              : throw new Exception("An error occurred while processing the claim.");
+        }
 
     }
 }
