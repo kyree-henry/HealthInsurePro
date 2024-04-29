@@ -1,6 +1,7 @@
 ﻿using FakeItEasy;
 using HealthInsurePro.Application.Abstracts.Repositories;
 using HealthInsurePro.Contract.ClaimContracts;
+using HealthInsurePro.Contract.PolicyHolderContracts;
 using HealthInsurePro.Domain;
 using Shouldly;
 
@@ -33,6 +34,7 @@ namespace HealthInsurePro.UnitTest.Infrastructure
             // Assert
             result.ShouldNotBeNull();
             result.Count().ShouldBe(4);
+            result.ShouldBe(expectedResult);
         }
 
         [Test]
@@ -70,6 +72,7 @@ namespace HealthInsurePro.UnitTest.Infrastructure
         }
 
         [Test]
+        [TestCase(ClaimStatus.Submitted)]
         [TestCase(ClaimStatus.InReview)]
         [TestCase(ClaimStatus.Approved)]
         [TestCase(ClaimStatus.Declined)]
@@ -89,30 +92,29 @@ namespace HealthInsurePro.UnitTest.Infrastructure
             result.ShouldBe(expectedClaim);
         }
 
-        private IEnumerable<ClaimModel> GetRandomClaimModels(int count, string? nationalId = null)
+        private static IEnumerable<ClaimModel> GetRandomClaimModels(int count, string? nationalId = null)
         {
-            Random random = new ();
-            return Enumerable.Range(1, count).Select(_ =>
-                new ClaimModel
-                {
-                    ClaimId = Guid.NewGuid(),
-                    NationalId = nationalId ?? random.Next(100000, 999999).ToString(),
-                    ClaimStatus = (ClaimStatus)random.Next(1, 5)
-                });
+            List<ClaimModel> claims = [];
+            for (int i = 0; i < count; i++)
+            {
+                Guid claimId = Guid.NewGuid();
+                claims.Add(GetRandomClaimModel(claimId, nationalId));
+            }
+            return claims;
         }
 
-        private ClaimModel GetRandomClaimModel(Guid? id = null)
+        private static ClaimModel GetRandomClaimModel(Guid? id = null, string? nationalId = null)
         {
-            Random random = new ();
+            Random random = new();
             return new ClaimModel
             {
                 ClaimId = id ?? Guid.NewGuid(),
-                NationalId = random.Next(100000, 999999).ToString(),
+                NationalId = nationalId ?? random.Next(100000, 999999).ToString(),
                 ClaimStatus = (ClaimStatus)random.Next(1, 5)
             };
         }
 
-        private CreateClaimModel GetRandomCreateClaimModel()
+        private static CreateClaimModel GetRandomCreateClaimModel()
         {
             Random random = new();
             return new CreateClaimModel
